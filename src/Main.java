@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,25 +26,33 @@ public class Main {
 
         if (userInput == 1) {
 //            shows contacts information per line.
-            for (String contact : contacts) {
-                System.out.println(contact);
-            }
+            printContacts();
 
         }
-//
-//        }
-//        System.out.println(userInput);
-//
-//        System.out.println(contacts);
-//        System.out.println(contacts.get(2));
 
     }
-//
-    public static void printContacts(){
+
+    //
+    public static void printContacts() throws IOException {
         System.out.println("Name        |  Phone number        ");
-
-
-
+        Path contactsList = get("data", "contacts.txt");
+        List<String>Listing = Files.readAllLines(contactsList);
+        for (String contact : Listing) {
+            System.out.println(contact);
+        }
     }
+
+    public static void addContact(String[] args) {
+        System.out.println("Name        |  Phone number        ");
+        Path contactsList = get("data", "contacts.txt");
+        List<String>Listing = Files.readAllLines(contactsList);
+
+//        Files.write(
+//                get("data", "contacts.txt"),
+//                Arrays.asList(""), // list with one item
+//                StandardOpenOption.APPEND
+        );
+    }
+}
 
 
