@@ -6,6 +6,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import static java.nio.file.Paths.get;
 
@@ -16,27 +17,28 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         boolean proceed = true;
-        do{
+        do {
             mainMenu();
             int userInput = sc1.nextInt();
 
             if (userInput == 1) {
 //            shows contacts information per line.
-                printContacts();
+                createContactList();
 
-            } else if (userInput ==2) {
-                addContact();
-            }else if (userInput ==3) {
+
+            } else if (userInput == 2) {
+                // addContact();
+            } else if (userInput == 3) {
                 searchContacts();
-            }else if (userInput ==4) {
+            } else if (userInput == 4) {
                 System.out.println("add a delete feature.");
-            }else if (userInput ==5) {
+            } else if (userInput == 5) {
                 exit();
                 proceed = false;
-            }else{
+            } else {
                 System.out.println("You have entered an invalid choice.");
             }
-        }while(proceed);
+        } while (proceed);
 
     }
 
@@ -45,7 +47,7 @@ public class Main {
         System.out.println("___________________________________________");
         System.out.println("Name        |  Phone number        ");
         Path contactsList = get("data", "contacts.txt");
-        List<String>Listing = Files.readAllLines(contactsList);
+        List<String> Listing = Files.readAllLines(contactsList);
         for (String contact : Listing) {
             System.out.println(contact);
             System.out.println("___________________________________________");
@@ -53,28 +55,29 @@ public class Main {
         }
     }
 
-    public static void addContact() throws IOException {
-        System.out.println("___________________________________________");
-        System.out.println("Add a New Contact");
-        System.out.println("\nFirst Name:\n");
-        String firstName = sc1.next();
-        System.out.println("\nLast Name:\n");
-        String lastName = sc1.next();
-        System.out.println("\nPhone Number: \n");
-        String pNumber = sc1.next();
-        Files.write(
-                Paths.get("data", "contacts.txt"),
-                Arrays.asList(firstName + " " + lastName + " | " + pNumber),
-                StandardOpenOption.APPEND
-        );
-        System.out.println( firstName +" " + lastName + "  has been added to contacts file.");        System.out.println("___________________________________________");
-        System.out.println("___________________________________________");
+//    public static void addContact() throws IOException {
+//        System.out.println("___________________________________________");
+//        System.out.println("Add a New Contact");
+//        System.out.println("\nFirst Name:\n");
+//        String firstName = sc1.next();
+//        System.out.println("\nLast Name:\n");
+//        String lastName = sc1.next();
+//        System.out.println("\nPhone Number: \n");
+//        String pNumber = sc1.next();
+//        Files.write(
+//                Paths.get("data", "contacts.txt"),
+//                Arrays.asList(firstName + " " + lastName + " | " + pNumber),
+//                StandardOpenOption.APPEND
+//        );
+//        System.out.println(firstName + " " + lastName + "  has been added to contacts file.");
+//        System.out.println("___________________________________________");
+//        System.out.println("___________________________________________");
+//
+//
+//    }
 
 
-    }
-
-
-    public static void mainMenu(){
+    public static void mainMenu() {
         System.out.println("___________________________________________");
         System.out.println(" Welcome to the Contacts Manager");
         System.out.println("\n-Main Menu-");
@@ -86,27 +89,52 @@ public class Main {
         System.out.println("\nMake a selection");
         System.out.println("___________________________________________");
     }
+
     public static void searchContacts() throws IOException {
         System.out.println("___________________________________________");
         System.out.println("Enter Name of Contact:");
         String searchedName = sc1.next();
         Path contactsList = get("data", "contacts.txt");
         List<String> Listing = Files.readAllLines(contactsList);
-        for(String name : Listing){
-            if(name.contains(searchedName)){
+        for (String name : Listing) {
+            if (name.contains(searchedName)) {
                 System.out.println(name);
                 System.out.println("___________________________________________");
             }
 
         }
+
     }
 
-    public static void exit(){
+//    public static void deleteContact() {
+//        System.out.println("___________________________________________");
+//        System.out.println("Enter Name of Contact:");
+//        String searchedName = sc1.next();
+//        if(searchedName.delete())
+//    }
+
+    public static void exit() {
         System.out.println("___________________________________________");
         System.out.println("Thank you for using Contact Manager");
         System.out.println("___________________________________________");
 
     }
-}
+
+    public static List<Contact> createContactList() throws IOException {
+        ArrayList<Contact> contacts = new ArrayList<>();
+        Path contactsList = get("data", "contacts.txt");
+        List<String> Listing = Files.readAllLines(contactsList);
+        for (String name : Listing) {
+            Contact person = new Contact(name.substring(0,name.lastIndexOf("|")),name.substring(name.lastIndexOf("|") + 1));
+            contacts.add(person);
+        }
+        System.out.println(contacts);
+        return contacts;
+
+    }
+
+
+    }
+
 
 
