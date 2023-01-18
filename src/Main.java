@@ -38,11 +38,11 @@ public class Main {
             }
         }while(proceed);
 
-
     }
 
     //
     public static void printContacts() throws IOException {
+        System.out.println("___________________________________________");
         System.out.println("Name        |  Phone number        ");
         Path contactsList = get("data", "contacts.txt");
         List<String>Listing = Files.readAllLines(contactsList);
@@ -54,6 +54,7 @@ public class Main {
     }
 
     public static void addContact() throws IOException {
+        System.out.println("___________________________________________");
         System.out.println("Add a New Contact");
         System.out.println("\nFirst Name:\n");
         String firstName = sc1.next();
@@ -84,19 +85,17 @@ public class Main {
         System.out.println("\n5. Exit.");
         System.out.println("\nMake a selection");
         System.out.println("___________________________________________");
-
     }
     public static void searchContacts() throws IOException {
+        System.out.println("___________________________________________");
         System.out.println("Enter Name of Contact:");
         String searchedName = sc1.next();
         Path contactsList = get("data", "contacts.txt");
         List<String> Listing = Files.readAllLines(contactsList);
-//        System.out.println(Listing);
         for(String name : Listing){
             if(name.contains(searchedName)){
                 System.out.println(name);
                 System.out.println("___________________________________________");
-
             }
 
         }
