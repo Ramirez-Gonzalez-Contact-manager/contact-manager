@@ -15,14 +15,11 @@ public class Main {
     static Scanner sc1 = new Scanner(System.in);
 
     static List<Contact> contacts;
-    private static Object duplicateName;
 
 
     public static void main(String[] args) throws IOException {
         boolean proceed = true;
         do {
-            contacts = createContactList();
-            System.out.println(contacts);
             mainMenu();
             int userInput = sc1.nextInt();
 
@@ -36,8 +33,6 @@ public class Main {
                 deleteContact();
             } else if (userInput == 5) {
                 exit();
-//            } else if (userInput == 6) {
-//                duplicateName();
                 proceed = false;
             } else {
                 System.out.println("You have entered an invalid choice.");
@@ -63,8 +58,8 @@ public class Main {
 
     // Allows user to view all contacts.
     public static void printContacts() throws IOException {
-        System.out.println("Name        |  Phone number        ");
-        System.out.println("___________________________________________");
+        System.out.printf("|%-10s        |%-10s        |","Name","Phone Number");
+        System.out.println("\n___________________________________________");
         Path contactsList = get("data", "contacts.txt");
         List<String> Listing = Files.readAllLines(contactsList);
         for (String contact : Listing) {
@@ -101,31 +96,17 @@ public class Main {
         Contact newPerson = new Contact((firstName + " " + lastName), pNumber);
         Path contactsList = get("data", "contacts.txt");
         List<String> Listing = Files.readAllLines(contactsList);
-        System.out.println(Listing);
-        System.out.println(firstName);
-//        if (contacts.contains(firstName)) {
-//            System.out.println("There is already a contact named " + newPerson.getName() + " Do you want to overwrite it?(yes/no");
-//            String userInput = sc1.next();
-//            if (userInput.equals("yes")) {
-//                Files.write(
-//                        Paths.get("data", "contacts.txt"),
-//                        Arrays.asList(firstName + " " + lastName + " | " + pNumber),
-//                        StandardOpenOption.APPEND
-//                );
-          //  }
-
-//        }
         Files.write(
                 Paths.get("data", "contacts.txt"),
-                Arrays.asList(firstName + " " + lastName + " | " + pNumber),
+                Arrays.asList(String.format("|%-8s %-8s | %-18s |",firstName,lastName,pNumber)),
                 StandardOpenOption.APPEND
         );
-        System.out.println(firstName + " " + lastName + "  has been added to contacts file.");
         System.out.println("___________________________________________");
         System.out.println("___________________________________________");
 
 
-    }
+        }
+
 
     // Allows user to search for contacts.
     public static void searchContacts() throws IOException {
@@ -159,7 +140,6 @@ public class Main {
                 Listing2.add(name);
             }
         }
-        System.out.println(Listing2);
         Files.write(Paths.get("data", "contacts.txt"), Listing2);
     }
 
@@ -170,25 +150,5 @@ public class Main {
         System.out.println("___________________________________________");
 
     }
-
-    // *Bonus*
-
-//    public static void duplicateName(String firstName, String newPerson, String lastName, String pNumber) throws IOException {
-//        ArrayList<Contact> contacts = new ArrayList<>();
-//        Path contactsList = get("data", "contacts.txt");
-//        List<String> Listing = Files.readAllLines(contactsList);
-//        if (contacts.contains(firstName)) {
-//            System.out.println("There is already a contact named " + newPerson + " Do you want to overwrite it?(yes/no");
-//            String userInput = sc1.next();
-//            if (userInput.equals("yes")) {
-//                Files.write(
-//                        get("data", "contacts.txt"),
-//                        Arrays.asList(firstName + " " + lastName + " | " + pNumber),
-//                        StandardOpenOption.APPEND
-//                );
-          // }
-
-       // }
-   // }
 
 }
