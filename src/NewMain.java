@@ -46,4 +46,23 @@ public class NewMain {
         return sc1.nextInt();
     }
 
+    public static void addContact() throws IOException {
+        System.out.println("___________________________________________");
+        System.out.println("Add a New Contact");
+        System.out.println("\nFirst Name:\n");
+        String firstName = sc1.next();
+        System.out.println("\nLast Name:\n");
+        String lastName = sc1.next();
+        System.out.println("\nPhone Number: \n");
+        String pNumber = sc1.next();
+        Files.write(
+                Paths.get("data", "contacts.txt"),
+                Arrays.asList(String.format("|%-8s %-8s | %-18s |",firstName,lastName,pNumber)),
+                StandardOpenOption.APPEND
+        );
+        System.out.println("___________________________________________");
+        System.out.println("___________________________________________");
+
+
+    }
 }
