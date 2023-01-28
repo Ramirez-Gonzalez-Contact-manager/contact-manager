@@ -14,8 +14,6 @@ import static java.nio.file.Paths.get;
 public class Main {
     static Scanner sc1 = new Scanner(System.in);
 
-    static List<Contact> contacts;
-
 
     public static void main(String[] args) throws IOException {
         boolean proceed = true;
@@ -56,7 +54,7 @@ public class Main {
     }
 
 
-    // Allows user to view all contacts.
+    // Allows user to view all contacts. * Bonus formatting
     public static void printContacts() throws IOException {
         System.out.printf("|%-10s        |%-10s        |","Name","Phone Number");
         System.out.println("\n___________________________________________");
@@ -70,18 +68,6 @@ public class Main {
     }
 
 
-    public static List<Contact> createContactList() throws IOException {
-        ArrayList<Contact> contacts = new ArrayList<>();
-        Path contactsList = get("data", "contacts.txt");
-        List<String> Listing = Files.readAllLines(contactsList);
-        for (String name : Listing) {
-            Contact person = new Contact(name.substring(0, name.lastIndexOf("|")), name.substring(name.lastIndexOf("|") + 1));
-            contacts.add(person);
-        }
-        System.out.println(contacts);
-        return contacts;
-    }
-
 
     // Allows user to add contacts.
     public static void addContact() throws IOException {
@@ -93,9 +79,6 @@ public class Main {
         String lastName = sc1.next();
         System.out.println("\nPhone Number: \n");
         String pNumber = sc1.next();
-        Contact newPerson = new Contact((firstName + " " + lastName), pNumber);
-        Path contactsList = get("data", "contacts.txt");
-        List<String> Listing = Files.readAllLines(contactsList);
         Files.write(
                 Paths.get("data", "contacts.txt"),
                 Arrays.asList(String.format("|%-8s %-8s | %-18s |",firstName,lastName,pNumber)),
