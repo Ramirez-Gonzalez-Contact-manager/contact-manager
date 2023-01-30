@@ -65,4 +65,15 @@ public class NewMain {
 
 
     }
+    public static void printContacts() throws IOException {
+        System.out.printf("|%-10s        |%-10s        |","Name","Phone Number");
+        System.out.println("\n___________________________________________");
+        Path contactsList = get("data", "contacts.txt");
+        List<String> Listing = Files.readAllLines(contactsList);
+        for (String contact : Listing) {
+            System.out.println(contact);
+        }
+        System.out.println("___________________________________________");
+
+    }
 }
